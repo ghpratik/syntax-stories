@@ -31,16 +31,14 @@ export function NavLinks({ categories }: NavLinksProps) {
   ];
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false);
   }, [pathname]);
 
   return (
     <>
       {/* Desktop nav */}
-      <nav
-        aria-label="Primary"
-        className="hidden items-center gap-1 md:flex"
-      >
+      <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
         {links.map((link) => (
           <Link
             key={link.href}

@@ -95,4 +95,23 @@ export const components = {
       </a>
     ),
   },
+  list: {
+    bullet: ({ children }: any) => (
+      <ul className="my-6 ml-6 list-disc space-y-2">{children}</ul>
+    ),
+
+    number: ({ children }: any) => (
+      <ol className="my-6 ml-6 list-decimal space-y-2">{children}</ol>
+    ),
+  },
+
+  listItem: {
+    bullet: ({ children }: any) => (
+      <li className="text-lg leading-7">{children}</li>
+    ),
+
+    number: ({ children }: any) => (
+      <li className="text-lg leading-7">{children}</li>
+    ),
+  },
 };

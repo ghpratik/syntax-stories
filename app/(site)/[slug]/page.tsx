@@ -87,7 +87,9 @@ export async function generateMetadata({
       description,
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
+      images: ogImage
+        ? [{ url: ogImage, width: 1200, height: 630 }]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -219,7 +221,7 @@ export default async function PostPage({
         </header>
 
         {postImageUrl && (
-          <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-2xl bg-muted">
+          <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-2xl bg-muted">
             <Image
               src={postImageUrl}
               alt={post.mainImage?.alt || post.title}

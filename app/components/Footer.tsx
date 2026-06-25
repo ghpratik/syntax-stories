@@ -51,7 +51,9 @@ export async function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Syntax Stories. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} Syntax Stories. All rights reserved.
+          </p>
           <p className="font-mono text-xs">Built with Next.js &amp; Sanity</p>
         </div>
       </div>
