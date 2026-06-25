@@ -47,6 +47,30 @@ export const postType = defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      rows: 3,
+      description:
+        'A short summary used on cards, previews, and for SEO meta descriptions.',
+      validation: (rule) => rule.max(200),
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured',
+      type: 'boolean',
+      description: 'Highlight this post in the homepage featured section.',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'popularity',
+      title: 'Popularity',
+      type: 'number',
+      description:
+        'Higher numbers rank a post higher in the "Popular" section. Leave at 0 if not popular.',
+      initialValue: 0,
+    }),
+    defineField({
       name: 'body',
       type: 'blockContent',
     }),
@@ -56,10 +80,16 @@ export const postType = defineType({
       title: 'title',
       author: 'author.name',
       media: 'mainImage',
+      featured: 'featured',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const {author, featured} = selection
+      return {
+        ...selection,
+        subtitle: [author && `by ${author}`, featured && '★ Featured']
+          .filter(Boolean)
+          .join('  •  '),
+      }
     },
   },
 })
