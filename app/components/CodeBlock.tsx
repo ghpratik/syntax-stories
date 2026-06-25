@@ -30,7 +30,7 @@ export async function CodeBlock({
           <span className="rounded-full border px-2 py-0.5 uppercase tracking-wide">
             {language}
           </span>
-          {filename ? <span>{filename}</span> : null}
+          <span>{filename}</span>
         </div>
 
         <CopyButton code={code} />

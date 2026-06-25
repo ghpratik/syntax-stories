@@ -9,24 +9,21 @@ import { components } from "../components/PortableTextComponents";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   title,
   slug,
   publishedAt,
-  body[]{
-    ...,
-    _type == "code" => {
-      ...,
-      code,
-      language,
-      filename
-    }
-  },
+  body[],
   mainImage,
   "author": author->{
     name,
     image
+  },
+  "categories": categories[]->{
+    title,
+    slug
   }
 }`;
 
@@ -51,8 +48,6 @@ export default async function PostPage({
     options,
   );
 
-  console.log("Post data:", post); // Log the fetched post data for debugging
-
   const postImageUrl = post.mainImage
     ? urlFor(post.mainImage)?.width(900).height(500).url()
     : null;
@@ -66,7 +61,17 @@ export default async function PostPage({
       <Link href="/" className="hover:underline">
         ← Back to posts
       </Link>
-
+      {post.categories && (
+        <div className="flex gap-2 flex-wrap">
+          {post.categories.map(
+            (category: { title: string; slug: string }, idx: number) => (
+              <Badge variant="secondary" key={idx}>
+                {category.title}
+              </Badge>
+            ),
+          )}
+        </div>
+      )}
       {postImageUrl && (
         <div className="w-full">
           <AspectRatio ratio={16 / 9} className="rounded-lg bg-muted">
@@ -99,7 +104,12 @@ export default async function PostPage({
         </div>
 
         <span>
-          Published: {new Date(post.publishedAt).toLocaleDateString()}
+          Published:{" "}
+          {new Date(post.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </span>
       </div>
 
